@@ -99,7 +99,7 @@ These subpatterns are referred to using the syntax `(?&name)`.
   <dd><code>"(?:[^\r\\"]|\r\n|(?&amp;indent_escape)|(?&amp;nonraw_escape))*"</code></dd>
 
   <dt><code>byte_string</code></dt>
-  <dd><code>b"(?:[[:ascii:]--\r\\"]|\r\n|(?&amp;indent_escape)|(?&amp;raw_escape))"</code></dd>
+  <dd><code>b"(?:[[:ascii:]--\r\\"]|\r\n|(?&amp;indent_escape)|(?&amp;raw_escape))*"</code></dd>
 
   <dt><code>exclamation</code></dt>
   <dd><code>!</code></dd>
@@ -186,35 +186,49 @@ These subpatterns are referred to using the syntax `(?&name)`.
 ### Ties
 
 <dl>
-  <dt><code>binary_integer</code> always ties with <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>binary_integer</code>, which is always the longer match.</dd>
+  <dt><code>line_comment</code> always ties with <code>slash</code>.</dt>
+  <dd>Prefer <code>line_comment</code>.</dd>
+
+  <dt><code>binary_integer</code> always ties with
+      <code>decimal_integer</code> and <code>identifier_frament</code>.</dt>
+  <dd>Prefer <code>binary_integer</code>.</dd>
 
   <dt><code>binary_float</code> always ties with
-      <code>binary_integer</code> and <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>binary_float</code>, which is always the longest match.</dd>
+      <code>binary_integer</code>, <code>decimal_integer</code>, and <code>identifier_frament</code>.</dt>
+  <dd>Prefer <code>binary_float</code>.</dd>
 
-  <dt><code>octal_integer</code> always ties with <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>octal_integer</code>, which is always the longer match.</dd>
+  <dt><code>octal_integer</code> always ties with
+      <code>decimal_integer</code> and <code>identifier_frament</code>.</dt>
+  <dd>Prefer <code>octal_integer</code>.</dd>
 
   <dt><code>octal_float</code> always ties with
-      <code>octal_integer</code> and <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>octal_float</code>, which is always the longest match.</dd>
+      <code>octal_integer</code>, <code>decimal_integer</code>, and <code>identifier_frament</code>.</dt>
+  <dd>Prefer <code>octal_float</code>.</dd>
 
-  <dt><code>hexadecimal_integer</code> always ties with <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>hexadecimal_integer</code>, which is always the longer match.</dd>
+  <dt><code>hexadecimal_integer</code> always ties with
+      <code>decimal_integer</code> and <code>identifier_frament</code>.</dt>
+  <dd>Prefer <code>hexadecimal_integer</code>.</dd>
 
   <dt><code>hexadecimal_float</code> always ties with
-      <code>hexadecimal_integer</code> and <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>hexadecimal_float</code>, which is always the longest match.</dd>
+      <code>hexadecimal_integer</code>, <code>decimal_integer</code>, and <code>identifier_frament</code>.</dt>
+  <dd>Prefer <code>hexadecimal_float</code>.</dd>
 
-  <dt><code>decimal_float</code> always ties with <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>decimal_float</code>, which is always the longer match.</dd>
+  <dt><code>decimal_integer</code> always ties with <code>identifier_fragment</code>.</dt>
+  <dd>Prefer <code>decimal_integer</code>.</dd>
+
+  <dt><code>decimal_float</code> always ties with
+      <code>decimal_integer</code> and <code>identifier_frament</code>.</dt>
+  <dd>Prefer <code>decimal_float</code>.</dd>
 
   <dt><code>character</code> can tie with <code>lifetime</code>.</dt>
-  <dd>Prefer <code>character</code>, which is always the longer match.</dd>
+  <dd>Prefer <code>character</code>.</dd>
+
+  <dt><code>byte_string</code> always ties with
+      <code>identifier</code> and <code>identifier_frament</code>.</dt>
+  <dd>Prefer <code>byte_string</code>.</dd>
 
   <dt><code>identifier</code> always ties with <code>identifier_fragment</code>.</dt>
-  <dd>Prefer <code>identifier</code>, which is always an equivalent match.</dd>
+  <dd>Prefer <code>identifier</code>.</dd>
 </dl>
 
 ### Note: Reserved Words
@@ -241,13 +255,15 @@ so the language grammar does not allow using them as typical program identifiers
 
 <dl>
   <dt><code>block_comment</code> always ties with <code>slash</code>.</dt>
-  <dd>Prefer <code>block_comment</code>, which is always the longer match.</dd>
+  <dd>Prefer <code>block_comment</code>.</dd>
 
-  <dt><code>raw_string</code> always ties with <code>identifier</code>.</dt>
-  <dd>Prefer <code>raw_string</code>, which is always the longer match.</dd>
+  <dt><code>raw_string</code> always ties with
+      <code>identifier</code> and <code>identifier_frament</code>.</dt>
+  <dd>Prefer <code>raw_string</code>.</dd>
 
-  <dt><code>raw_byte_string</code> always ties with <code>identifier</code>.</dt>
-  <dd>Prefer <code>raw_byte_string</code>, which is always the longer match.</dd>
+  <dt><code>raw_byte_string</code> always ties with
+      <code>identifier</code> and <code>identifier_frament</code>.</dt>
+  <dd>Prefer <code>raw_byte_string</code>.</dd>
 </dl>
 
 ## Nonregular tokens
@@ -414,14 +430,14 @@ fn parse_raw_string(s: &str) -> usize {
                 len += 1;
                 let mut hashes_seen: usize = 0;
                 loop {
+                    if hashes_seen == hashes {
+                        return len;
+                    }
                     match chars.peek() {
                         Some('#') => {
                             chars.next();
                             len += 1;
                             hashes_seen += 1;
-                            if hashes_seen == hashes {
-                                return len;
-                            }
                         }
                         _ => break,
                     }
@@ -479,13 +495,13 @@ char  = ? any ASCII character ? - "\r"
      It should be possible to understand with little knowledge of Rust. -->
 
 ```rust
-fn parse_raw_string(s: &str) -> usize {
+fn parse_raw_byte_string(s: &str) -> usize {
     let mut chars = s.chars().peekable();
     assert_eq!(chars.next(), Some('b'));
     assert_eq!(chars.next(), Some('r'));
 
     let mut hashes: usize = 0;
-    let mut len: usize = 1;
+    let mut len: usize = 2;
 
     loop {
         match chars.next() {
@@ -508,14 +524,14 @@ fn parse_raw_string(s: &str) -> usize {
                 len += 1;
                 let mut hashes_seen: usize = 0;
                 loop {
+                    if hashes_seen == hashes {
+                        return len;
+                    }
                     match chars.peek() {
                         Some('#') => {
                             chars.next();
                             len += 1;
                             hashes_seen += 1;
-                            if hashes_seen == hashes {
-                                return len;
-                            }
                         }
                         _ => break,
                     }
@@ -526,7 +542,7 @@ fn parse_raw_string(s: &str) -> usize {
                 _ => panic!("bare CR not allowed in raw byte string")
             },
             Some(c) if c.is_ascii() => len += 1,
-            Some(c) => panic!("raw byte string must be ASCII"),
+            Some(_) => panic!("raw byte string must be ASCII"),
             None => panic!("exhausted source in raw byte string"),
         }
     }
