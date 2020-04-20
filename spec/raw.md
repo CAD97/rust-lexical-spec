@@ -5,15 +5,15 @@ along with the length of the token with said lexical class.
 The lexer and lexical classes are called "raw" because they are not final;
 in order to finish lexing Rust source, the tokens must be "cooked" into proper tokens.
 
-The most obvious difference is that the raw lexer makes no provision for floating point literals.
-Instead, the cooking step is responsible for gluing together raw tokens to make them.
+The most obvious difference is that the raw lexer does not properly handle floating point
+literals. Instead, the cooking step is responsible for gluing together raw tokens to make them.
 
 Each raw lexical class is defined by a regular expression that matches that lexical class.
 In the case that two classes both match the prefix of a given string,
 ties are explicitly broken by always prefering one class over the other.
 
-There are three lexical classes, which are not regular, `block_comment`, `raw_string`,
-and `raw_byte_string`, and thus cannot be specified with just a regular expression.
+There are three lexical classes – `block_comment`, `raw_string`, and `raw_byte_string` –
+which are not regular, and thus cannot be specified with just a regular expression.
 For these lexical classes, they still have a regular prefix which is used to determine the
 lexical class of a string prefix between the regular classes and the nonregular classes.
 If the regular prefix of a nonregular class is chosen,
@@ -59,20 +59,35 @@ These subpatterns are referred to using the syntax `(?&name)`.
   <dt><code>raw_identifier</code></dt>
   <dd><code>r#[_\p{XID_Start}]\p{XID_Continue}*</code></dd>
 
+  <dt><code>identifier_fragment</code></dt>
+  <dd><code>\p{XID_Continue}+</code></dd>
+
   <dt><code>lifetime</code></dt>
   <dd><code>'[_\p{XID_Start}]\p{XID_Continue}*</code></dd>
 
   <dt><code>binary_integer</code></dt>
   <dd><code>0b[_0-9]*</code></dd>
 
+  <dt><code>binary_float</code><dt>
+  <dd><code>0b[_0-9]*[eE][_0-9]*</code></dt>
+
   <dt><code>octal_integer</code></dt>
   <dd><code>0o[_0-9]*</code></dd>
+
+  <dt><code>octal_float</code></dt>
+  <dd><code>0o[_0-9]*[eE][_0-9]*</code></dd>
 
   <dt><code>hexadecimal_integer</code></dt>
   <dd><code>0x[_0-9a-fA-F]*</code></dd>
 
-  <dt><code>decimal_number</code></dt>
+  <dt><code>hexadecimal_float</code></dt>
+  <dd><code>0x[_0-9a-fA-F]*[eE][_0-9a-fA-F]*</code></dd>
+
+  <dt><code>decimal_integer</code></dt>
   <dd><code>[0-9][_0-9]*</code></dd>
+
+  <dt><code>decimal_float</code></dt>
+  <dd><code>[0-9][_0-9]*[eE][_0-9]*</code></dd>
 
   <dt><code>character</code></dt>
   <dd><code>'(?:[^\t\n\r\\']|(?&amp;nonraw_escape))'</code></dd>
@@ -174,14 +189,32 @@ These subpatterns are referred to using the syntax `(?&name)`.
   <dt><code>binary_integer</code> always ties with <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>binary_integer</code>, which is always the longer match.</dd>
 
+  <dt><code>binary_float</code> always ties with
+      <code>binary_integer</code> and <code>decimal_integer</code>.</dt>
+  <dd>Prefer <code>binary_float</code>, which is always the longest match.</dd>
+
   <dt><code>octal_integer</code> always ties with <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>octal_integer</code>, which is always the longer match.</dd>
+
+  <dt><code>octal_float</code> always ties with
+      <code>octal_integer</code> and <code>decimal_integer</code>.</dt>
+  <dd>Prefer <code>octal_float</code>, which is always the longest match.</dd>
 
   <dt><code>hexadecimal_integer</code> always ties with <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>hexadecimal_integer</code>, which is always the longer match.</dd>
 
+  <dt><code>hexadecimal_float</code> always ties with
+      <code>hexadecimal_integer</code> and <code>decimal_integer</code>.</dt>
+  <dd>Prefer <code>hexadecimal_float</code>, which is always the longest match.</dd>
+
+  <dt><code>decimal_float</code> always ties with <code>decimal_integer</code>.</dt>
+  <dd>Prefer <code>decimal_float</code>, which is always the longer match.</dd>
+
   <dt><code>character</code> can tie with <code>lifetime</code>.</dt>
   <dd>Prefer <code>character</code>, which is always the longer match.</dd>
+
+  <dt><code>identifier</code> always ties with <code>identifier_fragment</code>.</dt>
+  <dd>Prefer <code>identifier</code>, which is always an equivalent match.</dd>
 </dl>
 
 ### Note: Reserved Words

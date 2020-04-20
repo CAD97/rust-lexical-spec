@@ -114,6 +114,9 @@ For convenience, a nonnormative description of what error is being caught is pro
 
   <dt><code>tilde</code> (<code>~</code>)</dt>
   <dd><code>Punctuation::~</code></dd>
+
+  <dt><code>identifier_fragment</code></dt>
+  <dd><code>ERROR</code> (Invalid start to identifier)</dd>
 </dl>
 
 ### Miscelaneous Processed
@@ -226,26 +229,21 @@ Ed note: floating point is hard
   <dt><code>hexadecimal_integer dot raw_identifier</code></dt>
   <dd><code>Literal::Integer::Hexadecimal Punctuation::Dot Identifier::Raw</code></dd>
 
-  <dt><code>binary_integer identifier</code> where the identifier has a prefix of
-      <code>e</code> or <code>E</code></dt>
+  <dt><code>binary_float</code></dt>
   <dd><code>ERROR</code> (Binary float literals not supported)</dd>
 
-  <dt><code>octal_integer identifier</code> where the identifier has a prefix of
-      <code>e</code> or <code>E</code></dt>
+  <dt><code>octal_float</code></dt>
   <dd><code>ERROR</code> (Octal float literals not supported)</dd>
 
-  <dt><code>hexadecimal_integer identifier</code> where the identifier has a prefix of
-      <code>e</code> or <code>E</code></dt>
+  <dt><code>hexadecimal_float</code></dt>
   <dd><code>ERROR</code> (Hexadecimal float literals not supported)</dd>
 
-  <dt><code>decimal_integer identifier</code> where the identifier has a prefix of
-      <code>e</code> or <code>E</code> and the identifier does not match
-      <code>^[eE]_*[0-9]</code></dt>
+  <dt><code>decimal_float</code> where the token does not match (unanchored)
+      <code>[eE]_*[0-9]</code></dt>
   <dd><code>ERROR</code> (No digits in float literal exponent)</dd>
 
-  <dt><code>decimal_integer dot decimal_integer identifier</code> where the identifier
-      has a prefix of <code>e</code> or <code>E</code> and the identifier does not match
-      <code>^[eE]_*[0-9]</code></dt>
+  <dt><code>decimal_integer dot decimal_float</code> where the <code>decimal_float</code>
+      does not match (unanchored) <code>[eE]_*[0-9]</code></dt>
   <dd><code>ERROR</code> (No digits in float literal exponent)</dd>
 </dl>
 
@@ -258,20 +256,75 @@ Ed note: floating point is hard
   <dt><code>decimal_integer dot decimal_integer</code></dt>
   <dd><code>Literal::Float::Unsuffixed</code></dd>
 
-  <dt><code>decimal_integer identifier</code> where the identifier totally matches
-      <code>[eE]_*[0-9][_0-9]*</code></dt>
+  <dt><code>decimal_integer dot decimal_float</code> where the <code>decimal_float</code>
+      matches (unanchored) <code>[eE]_*[0-9]*</code></dt>
   <dd><code>Literal::Float::Unsuffixed</code></dd>
 
-  <dt><code>decimal_integer identifier</code> where the identifier matches
-      <code>^[eE]_*[0-9]</code> but not <code>^[eE]_*[0-9][_0-9]*$</code></dt>
+  <dt><code>decimal_float</code></dt>
+  <dd><code>Literal::Float::Unsuffixed</code></dd>
+
+  <dt><code>decimal_float identifier</code> where the <code>decimal_float</code> matches
+      (unanchored) <code>[eE]_*[0-9]</code></dt>
   <dd><code>Literal::Float::Suffixed</code></dd>
 
-  <dt><code>decimal_integer dot decimal_integer identifier</code> where the identifier
-      totally matches <code>[eE]_*[0-9][_0-9]*</code></dt>
+  <dt><code>decimal_integer dot decimal_float</code></dt>
   <dd><code>Literal::Float::Unsuffixed</code></dd>
 
-  <dt><code>decimal_integer dot decimal_integer identifier</code> where the identifier
-      matches <code>^[eE]_*[0-9]</code> but not <code>^[eE]_*[0-9][_0-9]*$</code></dt>
+  <dt><code>decimal_integer dot decimal_float identifier</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot binary_float</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot binary_float identifier</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot binary_float identifier_fragment</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot binary_integer</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot binary_integer identifier</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot binary_integer identifier_fragment</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot octal_float</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot octal_float identifier</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot octal_float identifier_fragment</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot octal_integer</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot octal_integer identifier</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot octal_integer identifier_fragment</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot hexadecimal_float</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot hexadecimal_float identifier</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot hexadecimal_float identifier_fragment</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot hexadecimal_integer</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot hexadecimal_integer identifier</code></dt>
+  <dd><code>Literal::Float::Suffixed</code></dd>
+
+  <dt><code>decimal_integer dot hexadecimal_integer identifier_fragment</code></dt>
   <dd><code>Literal::Float::Suffixed</code></dd>
 </dl>
 
@@ -312,8 +365,7 @@ Ed note: floating point is hard
   <dd><code>Literal::Integer::Binary::Unsuffixed</code></dd>
 
   <dt><code>binary_integer identifier</code> where the <code>binary_integer</code> token matches
-      <code>^0b_*[01][_01]*$</code> and the <code>identifier</code> does not have a prefix of
-      <code>e</code> or <code>E</code></dt>
+      <code>^0b_*[01][_01]*$</code></dt>
   <dd><code>Literal::Integer::Binary::Suffixed</code> </dd>
 
   <dt><code>octal_integer</code> where the entire token matches
@@ -321,8 +373,7 @@ Ed note: floating point is hard
   <dd><code>Literal::Integer::Octal::Unsuffixed</code></dd>
 
   <dt><code>octal_integer identifier</code> where the <code>octal_integer</code> token matches
-      <code>^0o_*[0-7][_0-7]*$</code> and the <code>identifier</code> does not have a prefix of
-      <code>e</code> or <code>E</code></dt>
+      <code>^0o_*[0-7][_0-7]*$</code></dt>
   <dd><code>Literal::Integer::Octal::Suffixed</code></dd>
 
   <dt><code>hexadecimal_integer</code> where the entire token matches
@@ -330,14 +381,12 @@ Ed note: floating point is hard
   <dd><code>Literal::Integer::Hexadecimal::Unsuffixed</code></dd>
 
   <dt><code>hexadecimal_integer identifier</code> where the <code>hexadecimal_integer</code>
-      token matches <code>^0x_*[0-9a-fA-F][_0-9a-fA-F]*$</code> and the <code>identifier</code>
-      does not have a prefix of <code>e</code> or <code>E</code></dt>
+      token matches <code>^0x_*[0-9a-fA-F][_0-9a-fA-F]*$</code></dt>
   <dd><code>Literal::Integer::Hexadecimal::Suffixed</code></dd>
 
   <dt><code>decimal_integer</code></dt>
   <dd><code>Literal::Integer::Decimal::Unsuffixed</code></dd>
 
-  <dt><code>decimal_integer identifier</code> where the <code>identifier</code>
-      does not have a prefix of <code>e</code> or <code>E</code></dt>
+  <dt><code>decimal_integer identifier</code></dt>
   <dd><code>Literal::Integer::Decimal::Suffixed</code></dd>
 </dl>
