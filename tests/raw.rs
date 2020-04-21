@@ -24,7 +24,7 @@ fn examples_in_informal_reference() {
         reference_impl::Lexer
         [
             raw::reference_impl::Lexer,
-            // #[cfg(feature = "logos")] raw::logos_impl::Lexer,
+            #[cfg(feature = "logos")] raw::logos_impl::Lexer,
         ]
         [
             // <https://doc.rust-lang.org/stable/reference/keywords.html>

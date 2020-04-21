@@ -60,7 +60,7 @@ These subpatterns are referred to using the syntax `(?&name)`.
   <dd><code>r#[_\p{XID_Start}]\p{XID_Continue}*</code></dd>
 
   <dt><code>identifier_fragment</code></dt>
-  <dd><code>\p{XID_Continue}+</code></dd>
+  <dd><code>[\p{XID_Continue}--_0-9\p{XID_Start}]\p{XID_Continue}*</code></dd>
 
   <dt><code>lifetime</code></dt>
   <dd><code>'[_\p{XID_Start}]\p{XID_Continue}*</code></dd>
@@ -189,46 +189,35 @@ These subpatterns are referred to using the syntax `(?&name)`.
   <dt><code>line_comment</code> always ties with <code>slash</code>.</dt>
   <dd>Prefer <code>line_comment</code>.</dd>
 
-  <dt><code>binary_integer</code> always ties with
-      <code>decimal_integer</code> and <code>identifier_frament</code>.</dt>
+  <dt><code>binary_integer</code> always ties with <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>binary_integer</code>.</dd>
 
   <dt><code>binary_float</code> always ties with
-      <code>binary_integer</code>, <code>decimal_integer</code>, and <code>identifier_frament</code>.</dt>
+      <code>binary_integer</code> and <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>binary_float</code>.</dd>
 
-  <dt><code>octal_integer</code> always ties with
-      <code>decimal_integer</code> and <code>identifier_frament</code>.</dt>
+  <dt><code>octal_integer</code> always ties with <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>octal_integer</code>.</dd>
 
   <dt><code>octal_float</code> always ties with
-      <code>octal_integer</code>, <code>decimal_integer</code>, and <code>identifier_frament</code>.</dt>
+      <code>octal_integer</code> and <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>octal_float</code>.</dd>
 
-  <dt><code>hexadecimal_integer</code> always ties with
-      <code>decimal_integer</code> and <code>identifier_frament</code>.</dt>
+  <dt><code>hexadecimal_integer</code> always ties with <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>hexadecimal_integer</code>.</dd>
 
   <dt><code>hexadecimal_float</code> always ties with
-      <code>hexadecimal_integer</code>, <code>decimal_integer</code>, and <code>identifier_frament</code>.</dt>
+      <code>hexadecimal_integer</code> and <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>hexadecimal_float</code>.</dd>
 
-  <dt><code>decimal_integer</code> always ties with <code>identifier_fragment</code>.</dt>
-  <dd>Prefer <code>decimal_integer</code>.</dd>
-
-  <dt><code>decimal_float</code> always ties with
-      <code>decimal_integer</code> and <code>identifier_frament</code>.</dt>
+  <dt><code>decimal_float</code> always ties with <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>decimal_float</code>.</dd>
 
   <dt><code>character</code> can tie with <code>lifetime</code>.</dt>
   <dd>Prefer <code>character</code>.</dd>
 
-  <dt><code>byte_string</code> always ties with
-      <code>identifier</code> and <code>identifier_frament</code>.</dt>
+  <dt><code>byte_string</code> always ties with <code>identifier</code>.</dt>
   <dd>Prefer <code>byte_string</code>.</dd>
-
-  <dt><code>identifier</code> always ties with <code>identifier_fragment</code>.</dt>
-  <dd>Prefer <code>identifier</code>.</dd>
 </dl>
 
 ### Note: Reserved Words
@@ -257,12 +246,10 @@ so the language grammar does not allow using them as typical program identifiers
   <dt><code>block_comment</code> always ties with <code>slash</code>.</dt>
   <dd>Prefer <code>block_comment</code>.</dd>
 
-  <dt><code>raw_string</code> always ties with
-      <code>identifier</code> and <code>identifier_frament</code>.</dt>
+  <dt><code>raw_string</code> always ties with <code>identifier</code>.</dt>
   <dd>Prefer <code>raw_string</code>.</dd>
 
-  <dt><code>raw_byte_string</code> always ties with
-      <code>identifier</code> and <code>identifier_frament</code>.</dt>
+  <dt><code>raw_byte_string</code> always ties with <code>identifier</code>.</dt>
   <dd>Prefer <code>raw_byte_string</code>.</dd>
 </dl>
 

@@ -7,20 +7,20 @@ use {
 
 static REGEX_SET: Lazy<RegexSet> = Lazy::new(|| {
     RegexSet::new(vec![
-        r"\A//[^\n]*",                              // line_comment
-        r"\A\p{Pattern_White_Space}+",              // whitespace
-        r"\A[_\p{XID_Start}]\p{XID_Continue}*",     // identifier
-        r"\Ar#[_\p{XID_Start}]\p{XID_Continue}*",   // raw_identifier
-        r"\A\p{XID_Continue}+",                     // identifier_fragment
-        r"\A'[_\p{XID_Start}]\p{XID_Continue}*",    // lifetime
-        r"\A0b[_0-9]*",                             // binary_integer
-        r"\A0b[_0-9]*[eE][+-]?[_0-9]*",             // binary_float
-        r"\A0o[_0-9]*",                             // octal_integer
-        r"\A0o[_0-9]*[eE][+-]?[_0-9]*",             // octal_float
-        r"\A0x[_0-9a-fA-F]*",                       // hexadecimal_integer
-        r"\A0x[_0-9a-fA-F]*[eE][+-]?[_0-9a-fA-F]*", // hexadecimal_float
-        r"\A[0-9][_0-9]*",                          // decimal_integer
-        r"\A[0-9][_0-9]*[eE][+-]?[_0-9]*",          // decimal_float
+        r"\A//[^\n]*",                                               // line_comment
+        r"\A\p{Pattern_White_Space}+",                               // whitespace
+        r"\A[_\p{XID_Start}]\p{XID_Continue}*",                      // identifier
+        r"\Ar#[_\p{XID_Start}]\p{XID_Continue}*",                    // raw_identifier
+        r"\A[\p{XID_Continue}--_0-9\p{XID_Start}]\p{XID_Continue}*", // identifier_fragment
+        r"\A'[_\p{XID_Start}]\p{XID_Continue}*",                     // lifetime
+        r"\A0b[_0-9]*",                                              // binary_integer
+        r"\A0b[_0-9]*[eE][+-]?[_0-9]*",                              // binary_float
+        r"\A0o[_0-9]*",                                              // octal_integer
+        r"\A0o[_0-9]*[eE][+-]?[_0-9]*",                              // octal_float
+        r"\A0x[_0-9a-fA-F]*",                                        // hexadecimal_integer
+        r"\A0x[_0-9a-fA-F]*[eE][+-]?[_0-9a-fA-F]*",                  // hexadecimal_float
+        r"\A[0-9][_0-9]*",                                           // decimal_integer
+        r"\A[0-9][_0-9]*[eE][+-]?[_0-9]*",                           // decimal_float
         concat!(
             r#"\A'(?:[^\t\n\r\\']"#,
             r#"|\\['"]"#,                              // quote_escape
@@ -55,36 +55,36 @@ static REGEX_SET: Lazy<RegexSet> = Lazy::new(|| {
             r#"|\\x[0-9a-fA-F]{2}"#,            // byte_escape
             r#")*""#
         ), // byte_string
-        r"\A!",                                     // exclamation
-        r"\A#",                                     // pound
-        r"\A\$",                                    // dollar
-        r"\A%",                                     // percent
-        r"\A&",                                     // ampersand
-        r"\A\(",                                    // open_parenthesis
-        r"\A\)",                                    // close_parenthesis
-        r"\A\*",                                    // star
-        r"\A\+",                                    // plus
-        r"\A,",                                     // comma
-        r"\A-",                                     // minus
-        r"\A\.",                                    // dot
-        r"\A/",                                     // slash
-        r"\A:",                                     // colon
-        r"\A;",                                     // semicolon
-        r"\A<",                                     // less
-        r"\A=",                                     // equal
-        r"\A>",                                     // greater
-        r"\A\?",                                    // question
-        r"\A@",                                     // at
-        r"\A\[",                                    // open_bracket
-        r"\A\]",                                    // close_bracket
-        r"\A\^",                                    // circumflex
-        r"\A\{",                                    // open_brace
-        r"\A\|",                                    // bar
-        r"\A\}",                                    // close_brace
-        r"\A~",                                     // tilde
-        r"\A/\*",                                   // block_comment
-        r#"\Ar[#"]"#,                               // raw_string
-        r#"\Abr[#"]"#,                              // raw_byte_string
+        r"\A!",                                                      // exclamation
+        r"\A#",                                                      // pound
+        r"\A\$",                                                     // dollar
+        r"\A%",                                                      // percent
+        r"\A&",                                                      // ampersand
+        r"\A\(",                                                     // open_parenthesis
+        r"\A\)",                                                     // close_parenthesis
+        r"\A\*",                                                     // star
+        r"\A\+",                                                     // plus
+        r"\A,",                                                      // comma
+        r"\A-",                                                      // minus
+        r"\A\.",                                                     // dot
+        r"\A/",                                                      // slash
+        r"\A:",                                                      // colon
+        r"\A;",                                                      // semicolon
+        r"\A<",                                                      // less
+        r"\A=",                                                      // equal
+        r"\A>",                                                      // greater
+        r"\A\?",                                                     // question
+        r"\A@",                                                      // at
+        r"\A\[",                                                     // open_bracket
+        r"\A\]",                                                     // close_bracket
+        r"\A\^",                                                     // circumflex
+        r"\A\{",                                                     // open_brace
+        r"\A\|",                                                     // bar
+        r"\A\}",                                                     // close_brace
+        r"\A~",                                                      // tilde
+        r"\A/\*",                                                    // block_comment
+        r#"\Ar[#"]"#,                                                // raw_string
+        r#"\Abr[#"]"#,                                               // raw_byte_string
     ])
     .unwrap()
 });
@@ -110,22 +110,19 @@ impl super::Lexer for Lexer {
             [] => Err(())?,
             &[any] => any,
             [line_comment, slash] => line_comment,
-            [identifier_fragment, binary_integer, decimal_integer] => binary_integer,
-            [identifier_fragment, binary_integer, binary_float, decimal_integer] => binary_float,
-            [identifier_fragment, octal_integer, decimal_integer] => octal_integer,
-            [identifier_fragment, octal_integer, octal_float, decimal_integer] => octal_float,
-            [identifier_fragment, hexadecimal_integer, decimal_integer] => hexadecimal_integer,
-            [identifier_fragment, hexadecimal_integer, hexadecimal_float, decimal_integer] => {
-                hexadecimal_float
-            }
-            [identifier_fragment, decimal_integer] => decimal_integer,
-            [identifier_fragment, decimal_integer, decimal_float] => decimal_float,
+            [binary_integer, decimal_integer] => binary_integer,
+            [binary_integer, binary_float, decimal_integer] => binary_float,
+            [octal_integer, decimal_integer] => octal_integer,
+            [octal_integer, octal_float, decimal_integer] => octal_float,
+            [hexadecimal_integer, decimal_integer] => hexadecimal_integer,
+            [hexadecimal_integer, hexadecimal_float, decimal_integer] => hexadecimal_float,
+            [decimal_integer, decimal_float] => decimal_float,
             [lifetime, character] => character,
-            [identifier, identifier_fragment, byte_string] => byte_string,
+            [identifier, byte_string] => byte_string,
             [identifier, identifier_fragment] => identifier,
             [slash, block_comment] => block_comment,
-            [identifier, identifier_fragment, raw_string] => raw_string,
-            [identifier, identifier_fragment, raw_byte_string] => raw_byte_string,
+            [identifier, raw_string] => raw_string,
+            [identifier, raw_byte_string] => raw_byte_string,
             other => unimplemented!("raw lexer matched set {:?}", other),
         };
         Ok(match class {

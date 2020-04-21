@@ -1,10 +1,7 @@
 use logos::Logos;
 
-// NB: does not work correctly yet; `identifier_fragment` has too high a priority.
-// See github/maciejhirsz/logos#127 for the feature request to resolve this.
-
 #[allow(nonstandard_style)]
-#[derive(Logos)]
+#[derive(Logos, Debug, Eq, PartialEq)]
 enum TokenKind {
     #[regex(r"//[^\n]*")]
     line_comment,
@@ -14,7 +11,7 @@ enum TokenKind {
     identifier,
     #[regex(r"r#[_\p{XID_Start}]\p{XID_Continue}*")]
     raw_identifier,
-    #[regex(r"\p{XID_Continue}+")]
+    #[regex(r"[\p{XID_Continue}--_0-9\p{XID_Start}]\p{XID_Continue}*")]
     identifier_fragment,
     #[regex(r"'[_\p{XID_Start}]\p{XID_Continue}*")]
     lifetime,
