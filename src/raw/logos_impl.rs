@@ -25,8 +25,6 @@ enum TokenKind {
     octal_float,
     #[regex(r"0x[_0-9a-fA-F]*")]
     hexadecimal_integer,
-    #[regex(r"0x[_0-9a-fA-F]*[eE][+-]?[_0-9a-fA-F]*")]
-    hexadecimal_float,
     #[regex(r"[0-9][_0-9]*")]
     decimal_integer,
     #[regex(r"[0-9][_0-9]*[eE][+-]?[_0-9]*")]

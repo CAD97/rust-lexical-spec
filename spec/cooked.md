@@ -235,9 +235,6 @@ Ed note: floating point is hard
   <dt><code>octal_float</code></dt>
   <dd><code>ERROR</code> (Octal float literals not supported)</dd>
 
-  <dt><code>hexadecimal_float</code></dt>
-  <dd><code>ERROR</code> (Hexadecimal float literals not supported)</dd>
-
   <dt><code>decimal_float</code> where the token does not match (unanchored)
       <code>[eE]_*[0-9]</code></dt>
   <dd><code>ERROR</code> (No digits in float literal exponent)</dd>
@@ -307,15 +304,6 @@ Ed note: floating point is hard
   <dd><code>Literal::Float::Suffixed</code></dd>
 
   <dt><code>decimal_integer dot octal_integer identifier_fragment</code></dt>
-  <dd><code>Literal::Float::Suffixed</code></dd>
-
-  <dt><code>decimal_integer dot hexadecimal_float</code></dt>
-  <dd><code>Literal::Float::Suffixed</code></dd>
-
-  <dt><code>decimal_integer dot hexadecimal_float identifier</code></dt>
-  <dd><code>Literal::Float::Suffixed</code></dd>
-
-  <dt><code>decimal_integer dot hexadecimal_float identifier_fragment</code></dt>
   <dd><code>Literal::Float::Suffixed</code></dd>
 
   <dt><code>decimal_integer dot hexadecimal_integer</code></dt>

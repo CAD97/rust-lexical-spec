@@ -18,7 +18,6 @@ static REGEX_SET: Lazy<RegexSet> = Lazy::new(|| {
         r"\A0o[_0-9]*",                                              // octal_integer
         r"\A0o[_0-9]*[eE][+-]?[_0-9]*",                              // octal_float
         r"\A0x[_0-9a-fA-F]*",                                        // hexadecimal_integer
-        r"\A0x[_0-9a-fA-F]*[eE][+-]?[_0-9a-fA-F]*",                  // hexadecimal_float
         r"\A[0-9][_0-9]*",                                           // decimal_integer
         r"\A[0-9][_0-9]*[eE][+-]?[_0-9]*",                           // decimal_float
         concat!(
@@ -115,7 +114,6 @@ impl super::Lexer for Lexer {
             [octal_integer, decimal_integer] => octal_integer,
             [octal_integer, octal_float, decimal_integer] => octal_float,
             [hexadecimal_integer, decimal_integer] => hexadecimal_integer,
-            [hexadecimal_integer, hexadecimal_float, decimal_integer] => hexadecimal_float,
             [decimal_integer, decimal_float] => decimal_float,
             [lifetime, character] => character,
             [identifier, byte_string] => byte_string,

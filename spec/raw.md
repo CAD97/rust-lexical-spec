@@ -80,9 +80,6 @@ These subpatterns are referred to using the syntax `(?&name)`.
   <dt><code>hexadecimal_integer</code></dt>
   <dd><code>0x[_0-9a-fA-F]*</code></dd>
 
-  <dt><code>hexadecimal_float</code></dt>
-  <dd><code>0x[_0-9a-fA-F]*[eE][+-]?[_0-9a-fA-F]*</code></dd>
-
   <dt><code>decimal_integer</code></dt>
   <dd><code>[0-9][_0-9]*</code></dd>
 
@@ -205,10 +202,6 @@ These subpatterns are referred to using the syntax `(?&name)`.
 
   <dt><code>hexadecimal_integer</code> always ties with <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>hexadecimal_integer</code>, which is always the longer match.</dd>
-
-  <dt><code>hexadecimal_float</code> always ties with
-      <code>hexadecimal_integer</code> and <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>hexadecimal_float</code>, which is always the longest match.</dd>
 
   <dt><code>decimal_float</code> always ties with <code>decimal_integer</code>.</dt>
   <dd>Prefer <code>decimal_float</code>, which is always the longer match.</dd>
