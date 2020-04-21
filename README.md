@@ -20,6 +20,7 @@
 
 ### Nice to haves:
 
+- Show semi-formally that the imperitively-specced cooking transform is context-free (regular?)
 - Generate spec text and reference impl from structured metadata
 - More structured test battery, probably homebrew rather than `insta`
 - RFC this specification
