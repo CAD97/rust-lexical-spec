@@ -69,25 +69,25 @@ These subpatterns are referred to using the syntax `(?&name)`.
   <dd><code>0b[_0-9]*</code></dd>
 
   <dt><code>binary_float</code><dt>
-  <dd><code>0b[_0-9]*[eE][_0-9]*</code></dt>
+  <dd><code>0b[_0-9]*[eE][+-]?[_0-9]*</code></dt>
 
   <dt><code>octal_integer</code></dt>
   <dd><code>0o[_0-9]*</code></dd>
 
   <dt><code>octal_float</code></dt>
-  <dd><code>0o[_0-9]*[eE][_0-9]*</code></dd>
+  <dd><code>0o[_0-9]*[eE][+-]?[_0-9]*</code></dd>
 
   <dt><code>hexadecimal_integer</code></dt>
   <dd><code>0x[_0-9a-fA-F]*</code></dd>
 
   <dt><code>hexadecimal_float</code></dt>
-  <dd><code>0x[_0-9a-fA-F]*[eE][_0-9a-fA-F]*</code></dd>
+  <dd><code>0x[_0-9a-fA-F]*[eE][+-]?[_0-9a-fA-F]*</code></dd>
 
   <dt><code>decimal_integer</code></dt>
   <dd><code>[0-9][_0-9]*</code></dd>
 
   <dt><code>decimal_float</code></dt>
-  <dd><code>[0-9][_0-9]*[eE][_0-9]*</code></dd>
+  <dd><code>[0-9][_0-9]*[eE][+-]?[_0-9]*</code></dd>
 
   <dt><code>character</code></dt>
   <dd><code>'(?:[^\t\n\r\\']|(?&amp;nonraw_escape))'</code></dd>
