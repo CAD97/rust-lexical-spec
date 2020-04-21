@@ -1,5 +1,5 @@
-// #[cfg(feature = "logos")]
-// pub mod logos_impl;
+#[cfg(feature = "logos")]
+pub mod logos_impl;
 pub mod reference_impl;
 
 #[allow(nonstandard_style)]
