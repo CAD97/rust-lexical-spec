@@ -68,8 +68,8 @@ These subpatterns are referred to using the syntax `(?&name)`.
   <dt><code>binary_integer</code></dt>
   <dd><code>0b[_0-9]*</code></dd>
 
-  <dt><code>binary_float</code><dt>
-  <dd><code>0b[_0-9]*[eE][+-]?[_0-9]*</code></dt>
+  <dt><code>binary_float</code></dt>
+  <dd><code>0b[_0-9]*[eE][+-]?[_0-9]*</code></dd>
 
   <dt><code>octal_integer</code></dt>
   <dd><code>0o[_0-9]*</code></dd>
