@@ -1,0 +1,24 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"0.0b·XID_Continue·after·what·looks·like·binary·int\")"
+---
+Ok(
+    [
+        Token {
+            class: decimal_integer,
+            length: 1,
+        },
+        Token {
+            class: dot,
+            length: 1,
+        },
+        Token {
+            class: binary_integer,
+            length: 2,
+        },
+        Token {
+            class: identifier_fragment,
+            length: 53,
+        },
+    ],
+)

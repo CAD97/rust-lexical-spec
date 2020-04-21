@@ -107,3 +107,20 @@ pub mod degenerate_cases {
         ]
     }
 }
+
+#[test]
+fn interesting_edge_cases() {
+    test_all! {
+        reference_impl::Lexer
+        [
+            raw::reference_impl::Lexer,
+            #[cfg(feature = "logos")] raw::logos_impl::Lexer,
+        ]
+        [
+            // This is the reason for identifier_fragment; this is a suffixed float literal
+            // otherwise this would be raw `identifier dot binary_integer ERROR`
+            // instead this is raw `identifier dot binary_integer identifier_fragment`
+            "0.0b·XID_Continue·after·what·looks·like·binary·int",
+        ]
+    }
+}
