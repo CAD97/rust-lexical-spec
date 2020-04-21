@@ -187,37 +187,37 @@ These subpatterns are referred to using the syntax `(?&name)`.
 
 <dl>
   <dt><code>line_comment</code> always ties with <code>slash</code>.</dt>
-  <dd>Prefer <code>line_comment</code>.</dd>
+  <dd>Prefer <code>line_comment</code>, which is always the longer match.</dd>
 
   <dt><code>binary_integer</code> always ties with <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>binary_integer</code>.</dd>
+  <dd>Prefer <code>binary_integer</code>, which is always the longer match.</dd>
 
   <dt><code>binary_float</code> always ties with
       <code>binary_integer</code> and <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>binary_float</code>.</dd>
+  <dd>Prefer <code>binary_float</code>, which is always the longest match.</dd>
 
   <dt><code>octal_integer</code> always ties with <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>octal_integer</code>.</dd>
+  <dd>Prefer <code>octal_integer</code>, which is always the longer match.</dd>
 
   <dt><code>octal_float</code> always ties with
       <code>octal_integer</code> and <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>octal_float</code>.</dd>
+  <dd>Prefer <code>octal_float</code>, which is always the longest match.</dd>
 
   <dt><code>hexadecimal_integer</code> always ties with <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>hexadecimal_integer</code>.</dd>
+  <dd>Prefer <code>hexadecimal_integer</code>, which is always the longer match.</dd>
 
   <dt><code>hexadecimal_float</code> always ties with
       <code>hexadecimal_integer</code> and <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>hexadecimal_float</code>.</dd>
+  <dd>Prefer <code>hexadecimal_float</code>, which is always the longest match.</dd>
 
   <dt><code>decimal_float</code> always ties with <code>decimal_integer</code>.</dt>
-  <dd>Prefer <code>decimal_float</code>.</dd>
+  <dd>Prefer <code>decimal_float</code>, which is always the longer match.</dd>
 
   <dt><code>character</code> can tie with <code>lifetime</code>.</dt>
-  <dd>Prefer <code>character</code>.</dd>
+  <dd>Prefer <code>character</code>, which is always the longer match.</dd>
 
   <dt><code>byte_string</code> always ties with <code>identifier</code>.</dt>
-  <dd>Prefer <code>byte_string</code>.</dd>
+  <dd>Prefer <code>byte_string</code>, which is always the longer match.</dd>
 </dl>
 
 ### Note: Reserved Words
@@ -244,13 +244,13 @@ so the language grammar does not allow using them as typical program identifiers
 
 <dl>
   <dt><code>block_comment</code> always ties with <code>slash</code>.</dt>
-  <dd>Prefer <code>block_comment</code>.</dd>
+  <dd>Prefer <code>block_comment</code>, which is always the longer match.</dd>
 
   <dt><code>raw_string</code> always ties with <code>identifier</code>.</dt>
-  <dd>Prefer <code>raw_string</code>.</dd>
+  <dd>Prefer <code>raw_string</code>, which is always the longer match.</dd>
 
   <dt><code>raw_byte_string</code> always ties with <code>identifier</code>.</dt>
-  <dd>Prefer <code>raw_byte_string</code>.</dd>
+  <dd>Prefer <code>raw_byte_string</code>, which is always the longer match.</dd>
 </dl>
 
 ## Nonregular tokens
