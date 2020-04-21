@@ -1,6 +1,6 @@
 ---
 source: tests/raw.rs
-expression: "<reference_impl::Lexer>::lex_all(\"\\\n//! A doc comment that applies to the implicit anonymous module of this crate\n\npub mod outer_module {\n\n//!  - Inner line doc\n//!! - Still an inner line doc (but with a bang at the beginning)\n\n/*!  - Inner block doc */\n/*!! - Still an inner block doc (but with a bang at the beginning) */\n\n//   - Only a comment\n///  - Outer line doc (exactly 3 slashes)\n//// - Only a comment\n\n/*   - Only a comment */\n/**  - Outer block doc (exactly) 2 asterisks */\n/*** - Only a comment */\n\npub mod inner_module {}\n\npub mod nested_comments {\n    /* In Rust /* we can /* nest comments */ */ */\n\n    // All three types of block comments can contain or be nested inside\n    // any other type:\n\n    /*   /* */  /** */  /*! */  */\n    /*!  /* */  /** */  /*! */  */\n    /**  /* */  /** */  /*! */  */\n    pub mod dummy_item {}\n}\n\npub mod degenerate_cases {\n    // empty inner line doc\n    //!\n\n    // empty inner block doc\n    /*!*/\n\n    // empty line comment\n    //\n\n    // empty outer line doc\n    ///\n\n    // empty block comment\n    /**/\n\n    pub mod dummy_item {}\n\n    // empty 2-asterisk block isn't a doc block, it is a block comment\n    /***/\n\n}\n\n/* The next one isn't allowed because outer doc comments\n    require an item that will receive the doc */\n\n/// Where is my item?\n}\")"
+expression: "<reference_impl::Lexer>::lex_all(\"\\\n//! A doc comment that applies to the implicit anonymous module of this crate\n\npub mod outer_module {\n\n    //!  - Inner line doc\n    //!! - Still an inner line doc (but with a bang at the beginning)\n\n    /*!  - Inner block doc */\n    /*!! - Still an inner block doc (but with a bang at the beginning) */\n\n    //   - Only a comment\n    ///  - Outer line doc (exactly 3 slashes)\n    //// - Only a comment\n\n    /*   - Only a comment */\n    /**  - Outer block doc (exactly) 2 asterisks */\n    /*** - Only a comment */\n\n    pub mod inner_module {}\n\n    pub mod nested_comments {\n        /* In Rust /* we can /* nest comments */ */ */\n\n        // All three types of block comments can contain or be nested inside\n        // any other type:\n\n        /*   /* */  /** */  /*! */  */\n        /*!  /* */  /** */  /*! */  */\n        /**  /* */  /** */  /*! */  */\n        pub mod dummy_item {}\n    }\n\n    pub mod degenerate_cases {\n        // empty inner line doc\n        //!\n\n        // empty inner block doc\n        /*!*/\n\n        // empty line comment\n        //\n\n        // empty outer line doc\n        ///\n\n        // empty block comment\n        /**/\n\n        pub mod dummy_item {}\n\n        // empty 2-asterisk block isn't a doc block, it is a block comment\n        /***/\n\n    }\n\n    /* The next one isn't allowed because outer doc comments\n        require an item that will receive the doc */\n\n    /// Where is my item?\n}\")"
 ---
 Ok(
     [
@@ -42,7 +42,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 2,
+            length: 6,
         },
         Token {
             class: line_comment,
@@ -50,7 +50,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 1,
+            length: 5,
         },
         Token {
             class: line_comment,
@@ -58,7 +58,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 2,
+            length: 6,
         },
         Token {
             class: block_comment,
@@ -66,7 +66,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 1,
+            length: 5,
         },
         Token {
             class: block_comment,
@@ -74,7 +74,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 2,
+            length: 6,
         },
         Token {
             class: line_comment,
@@ -82,7 +82,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 1,
+            length: 5,
         },
         Token {
             class: line_comment,
@@ -90,7 +90,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 1,
+            length: 5,
         },
         Token {
             class: line_comment,
@@ -98,7 +98,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 2,
+            length: 6,
         },
         Token {
             class: block_comment,
@@ -106,7 +106,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 1,
+            length: 5,
         },
         Token {
             class: block_comment,
@@ -114,7 +114,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 1,
+            length: 5,
         },
         Token {
             class: block_comment,
@@ -122,7 +122,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 2,
+            length: 6,
         },
         Token {
             class: identifier,
@@ -158,7 +158,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 2,
+            length: 6,
         },
         Token {
             class: identifier,
@@ -190,7 +190,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: block_comment,
@@ -198,7 +198,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 6,
+            length: 10,
         },
         Token {
             class: line_comment,
@@ -206,7 +206,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: line_comment,
@@ -214,7 +214,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 6,
+            length: 10,
         },
         Token {
             class: block_comment,
@@ -222,7 +222,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: block_comment,
@@ -230,7 +230,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: block_comment,
@@ -238,7 +238,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: identifier,
@@ -274,7 +274,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 1,
+            length: 5,
         },
         Token {
             class: close_brace,
@@ -282,7 +282,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 2,
+            length: 6,
         },
         Token {
             class: identifier,
@@ -314,7 +314,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: line_comment,
@@ -322,7 +322,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: line_comment,
@@ -330,7 +330,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 6,
+            length: 10,
         },
         Token {
             class: line_comment,
@@ -338,7 +338,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: block_comment,
@@ -346,7 +346,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 6,
+            length: 10,
         },
         Token {
             class: line_comment,
@@ -354,7 +354,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: line_comment,
@@ -362,7 +362,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 6,
+            length: 10,
         },
         Token {
             class: line_comment,
@@ -370,7 +370,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: line_comment,
@@ -378,7 +378,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 6,
+            length: 10,
         },
         Token {
             class: line_comment,
@@ -386,7 +386,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: block_comment,
@@ -394,7 +394,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 6,
+            length: 10,
         },
         Token {
             class: identifier,
@@ -430,7 +430,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 6,
+            length: 10,
         },
         Token {
             class: line_comment,
@@ -438,7 +438,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 5,
+            length: 9,
         },
         Token {
             class: block_comment,
@@ -446,7 +446,7 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 2,
+            length: 6,
         },
         Token {
             class: close_brace,
@@ -454,15 +454,15 @@ Ok(
         },
         Token {
             class: whitespace,
-            length: 2,
+            length: 6,
         },
         Token {
             class: block_comment,
-            length: 105,
+            length: 109,
         },
         Token {
             class: whitespace,
-            length: 2,
+            length: 6,
         },
         Token {
             class: line_comment,
