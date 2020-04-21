@@ -1,0 +1,16 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"123AFB43\")"
+---
+Ok(
+    [
+        Token {
+            class: decimal_integer,
+            length: 3,
+        },
+        Token {
+            class: identifier,
+            length: 5,
+        },
+    ],
+)

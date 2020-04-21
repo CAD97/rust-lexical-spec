@@ -1,0 +1,12 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"\\u{200F}\")"
+---
+Ok(
+    [
+        Token {
+            class: whitespace,
+            length: 3,
+        },
+    ],
+)

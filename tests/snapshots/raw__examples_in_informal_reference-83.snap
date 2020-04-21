@@ -1,0 +1,12 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(r###\"r\"\\x52\"\"###)"
+---
+Ok(
+    [
+        Token {
+            class: raw_string,
+            length: 7,
+        },
+    ],
+)

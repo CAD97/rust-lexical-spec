@@ -1,0 +1,12 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"0o77\")"
+---
+Ok(
+    [
+        Token {
+            class: octal_integer,
+            length: 4,
+        },
+    ],
+)

@@ -1,0 +1,24 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"1_234.0E+18f64\")"
+---
+Ok(
+    [
+        Token {
+            class: decimal_integer,
+            length: 5,
+        },
+        Token {
+            class: dot,
+            length: 1,
+        },
+        Token {
+            class: decimal_float,
+            length: 5,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+    ],
+)

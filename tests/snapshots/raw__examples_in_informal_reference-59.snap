@@ -1,0 +1,12 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"\\u{000C}\")"
+---
+Ok(
+    [
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+    ],
+)

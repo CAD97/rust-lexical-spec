@@ -1,0 +1,16 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"0b1111_1111_1001_0000i64\")"
+---
+Ok(
+    [
+        Token {
+            class: binary_integer,
+            length: 21,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+    ],
+)

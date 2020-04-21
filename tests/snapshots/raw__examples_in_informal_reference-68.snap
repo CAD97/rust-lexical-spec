@@ -1,0 +1,12 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"0xff\")"
+---
+Ok(
+    [
+        Token {
+            class: hexadecimal_integer,
+            length: 4,
+        },
+    ],
+)

@@ -1,0 +1,16 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"2.\")"
+---
+Ok(
+    [
+        Token {
+            class: decimal_integer,
+            length: 1,
+        },
+        Token {
+            class: dot,
+            length: 1,
+        },
+    ],
+)

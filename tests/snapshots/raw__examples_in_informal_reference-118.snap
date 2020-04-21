@@ -1,0 +1,16 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"12E+99_f64\")"
+---
+Ok(
+    [
+        Token {
+            class: decimal_float,
+            length: 7,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+    ],
+)

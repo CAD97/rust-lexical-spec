@@ -1,0 +1,16 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"128_i8\")"
+---
+Ok(
+    [
+        Token {
+            class: decimal_integer,
+            length: 4,
+        },
+        Token {
+            class: identifier,
+            length: 2,
+        },
+    ],
+)

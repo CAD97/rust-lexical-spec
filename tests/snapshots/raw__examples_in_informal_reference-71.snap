@@ -1,0 +1,20 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"123.0E+77\")"
+---
+Ok(
+    [
+        Token {
+            class: decimal_integer,
+            length: 3,
+        },
+        Token {
+            class: dot,
+            length: 1,
+        },
+        Token {
+            class: decimal_float,
+            length: 5,
+        },
+    ],
+)

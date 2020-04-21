@@ -1,0 +1,12 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"macro\")"
+---
+Ok(
+    [
+        Token {
+            class: identifier,
+            length: 5,
+        },
+    ],
+)

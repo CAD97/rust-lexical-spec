@@ -1,0 +1,480 @@
+---
+source: tests/raw.rs
+expression: "<reference_impl::Lexer>::lex_all(\"\\\n//! A doc comment that applies to the implicit anonymous module of this crate\n\npub mod outer_module {\n\n//!  - Inner line doc\n//!! - Still an inner line doc (but with a bang at the beginning)\n\n/*!  - Inner block doc */\n/*!! - Still an inner block doc (but with a bang at the beginning) */\n\n//   - Only a comment\n///  - Outer line doc (exactly 3 slashes)\n//// - Only a comment\n\n/*   - Only a comment */\n/**  - Outer block doc (exactly) 2 asterisks */\n/*** - Only a comment */\n\npub mod inner_module {}\n\npub mod nested_comments {\n    /* In Rust /* we can /* nest comments */ */ */\n\n    // All three types of block comments can contain or be nested inside\n    // any other type:\n\n    /*   /* */  /** */  /*! */  */\n    /*!  /* */  /** */  /*! */  */\n    /**  /* */  /** */  /*! */  */\n    pub mod dummy_item {}\n}\n\npub mod degenerate_cases {\n    // empty inner line doc\n    //!\n\n    // empty inner block doc\n    /*!*/\n\n    // empty line comment\n    //\n\n    // empty outer line doc\n    ///\n\n    // empty block comment\n    /**/\n\n    pub mod dummy_item {}\n\n    // empty 2-asterisk block isn't a doc block, it is a block comment\n    /***/\n\n}\n\n/* The next one isn't allowed because outer doc comments\n    require an item that will receive the doc */\n\n/// Where is my item?\n}\")"
+---
+Ok(
+    [
+        Token {
+            class: line_comment,
+            length: 77,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 12,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: open_brace,
+            length: 1,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: line_comment,
+            length: 21,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: line_comment,
+            length: 65,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: block_comment,
+            length: 25,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: block_comment,
+            length: 69,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: line_comment,
+            length: 21,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: line_comment,
+            length: 41,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: line_comment,
+            length: 21,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: block_comment,
+            length: 24,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: block_comment,
+            length: 47,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: block_comment,
+            length: 24,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 12,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: open_brace,
+            length: 1,
+        },
+        Token {
+            class: close_brace,
+            length: 1,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 15,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: open_brace,
+            length: 1,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: block_comment,
+            length: 46,
+        },
+        Token {
+            class: whitespace,
+            length: 6,
+        },
+        Token {
+            class: line_comment,
+            length: 68,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: line_comment,
+            length: 18,
+        },
+        Token {
+            class: whitespace,
+            length: 6,
+        },
+        Token {
+            class: block_comment,
+            length: 30,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: block_comment,
+            length: 30,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: block_comment,
+            length: 30,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 10,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: open_brace,
+            length: 1,
+        },
+        Token {
+            class: close_brace,
+            length: 1,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: close_brace,
+            length: 1,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 16,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: open_brace,
+            length: 1,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: line_comment,
+            length: 23,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: line_comment,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 6,
+        },
+        Token {
+            class: line_comment,
+            length: 24,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: block_comment,
+            length: 5,
+        },
+        Token {
+            class: whitespace,
+            length: 6,
+        },
+        Token {
+            class: line_comment,
+            length: 21,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: line_comment,
+            length: 2,
+        },
+        Token {
+            class: whitespace,
+            length: 6,
+        },
+        Token {
+            class: line_comment,
+            length: 23,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: line_comment,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 6,
+        },
+        Token {
+            class: line_comment,
+            length: 22,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: block_comment,
+            length: 4,
+        },
+        Token {
+            class: whitespace,
+            length: 6,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 3,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: identifier,
+            length: 10,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: open_brace,
+            length: 1,
+        },
+        Token {
+            class: close_brace,
+            length: 1,
+        },
+        Token {
+            class: whitespace,
+            length: 6,
+        },
+        Token {
+            class: line_comment,
+            length: 66,
+        },
+        Token {
+            class: whitespace,
+            length: 5,
+        },
+        Token {
+            class: block_comment,
+            length: 5,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: close_brace,
+            length: 1,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: block_comment,
+            length: 105,
+        },
+        Token {
+            class: whitespace,
+            length: 2,
+        },
+        Token {
+            class: line_comment,
+            length: 21,
+        },
+        Token {
+            class: whitespace,
+            length: 1,
+        },
+        Token {
+            class: close_brace,
+            length: 1,
+        },
+    ],
+)
