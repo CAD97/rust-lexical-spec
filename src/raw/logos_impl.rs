@@ -2,6 +2,14 @@ use logos::Logos;
 
 #[allow(nonstandard_style)]
 #[derive(Logos, Debug, Eq, PartialEq)]
+#[logos(
+    subpattern quote_escape = r#"\\['"]"#,
+    subpattern named_escape = r#"\\[nrt\\0]"#,
+    subpattern ascii_escape = r#"\\x[0-7][0-9a-fA-F]"#,
+    subpattern byte_escape = r#"\\x[0-9a-fA-F][0-9a-fA-F]"#,
+    subpattern unicode_escape = r#"\\u\{(?:10|[0-9])[0-9a-fA-F]?[0-9a-fA-F]?[0-9a-fA-F]?[0-9a-fA-F]?\}"#,
+    subpattern indent_escape = r#"\\\n\p{Pattern_White_Space}*"#,
+)]
 enum TokenKind {
     #[regex(r"//[^\n]*")]
     line_comment,
@@ -29,13 +37,13 @@ enum TokenKind {
     decimal_integer,
     #[regex(r"[0-9][_0-9]*[eE][+-]?[_0-9]*")]
     decimal_float,
-    #[regex(r#"'(?:[^\t\n\r\\']|\\['"]|\\[nrt\\0]|\\x[0-7][0-9a-fA-F]|\\u\{(?:10|[0-9])[0-9a-fA-F]?[0-9a-fA-F]?[0-9a-fA-F]?[0-9a-fA-F]?\})'"#)]
+    #[regex(r#"'(?:[^\t\n\r\\']|(?&quote_escape)|(?&named_escape)|(?&ascii_escape)|(?&unicode_escape))'"#)]
     character,
-    #[regex(r#"'(?:[[:ascii:]--\t\n\r\\']|\\['"]|\\[nrt\\0]|\\x[0-9a-fA-F][0-9a-fA-F])'"#)]
+    #[regex(r#"b'(?:[[:ascii:]--\t\n\r\\']|(?&quote_escape)|(?&named_escape)|(?&byte_escape))'"#)]
     byte,
-    #[regex(r#""(?:[^\t\n\r\\"]|\r\n|\\\n\p{Pattern_White_Space}*|\\['"]|\\[nrt\\0]|\\x[0-7][0-9a-fA-F]|\\u\{(?:10|[0-9])[0-9a-fA-F]?[0-9a-fA-F]?[0-9a-fA-F]?[0-9a-fA-F]?\})*""#)]
+    #[regex(r#""(?:[^\t\n\r\\"]|\r\n|(?&indent_escape)|(?&quote_escape)|(?&named_escape)|(?&ascii_escape)|(?&unicode_escape))*""#)]
     string,
-    #[regex(r#"b"(?:[[:ascii:]--\r\\"]|\r\n|\\\n\p{Pattern_White_Space}*|\\['"]|\\[nrt\\0]|\\x[0-9a-fA-F][0-9a-fA-F])*""#)]
+    #[regex(r#"b"(?:[[:ascii:]--\r\\"]|\r\n|(?&indent_escape)|(?&quote_escape)|(?&named_escape)|(?&byte_escape))*""#)]
     byte_string,
     #[regex(r"!")]
     exclamation,

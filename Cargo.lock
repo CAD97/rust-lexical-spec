@@ -135,18 +135,18 @@ checksum = "ae91b68aebc4ddb91978b11a1b02ddd8602a05ec19002801c5666000e05e0f83"
 
 [[package]]
 name = "logos"
-version = "0.11.0"
+version = "0.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "42718f9e929c97a875b305f7bd411f7dfc5777ee4a9904aa9c765f25701b7c4c"
+checksum = "675a0afeda5b49eb47fc4377462fdedd34d480ee364c087b81ad97c9af84c08b"
 dependencies = [
  "logos-derive",
 ]
 
 [[package]]
 name = "logos-derive"
-version = "0.11.0"
+version = "0.11.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "93ea1beb72d3e0928e729e8795186b9a4ed607a72765bcf8093800ef7c0d5fc0"
+checksum = "bd706a353863fd6fb1df29b8d97c028b254c7518b1ada64843b8aeee074ac1fd"
 dependencies = [
  "beef",
  "fnv",
