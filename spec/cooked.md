@@ -23,7 +23,7 @@ For convenience, a nonnormative description of what error is being caught is pro
 
 <dl>
   <dt><code>whitespace</code></dt>
-  <dd><code>Trivia::Whitesapce</code></dd>
+  <dd><code>Trivia::Whitespace</code></dd>
 
   <dt><code>identifier</code></dt>
   <dd><code>Identifier::Plain</code></dd>
