@@ -101,13 +101,13 @@ For convenience, a nonnormative description of what error is being caught is pro
   <dd><code>Punctuation::Bracket::Close</code></dd>
 
   <dt><code>circumflex</code> (<code>^</code>)</dt>
-  <dd><code>Punctuation::CircumFlex</code></dd>
+  <dd><code>Punctuation::Circumflex</code></dd>
 
   <dt><code>close_brace</code> (<code>{</code>)</dt>
   <dd><code>Punctuation::Brace::Open</code></dd>
 
   <dt><code>bar</code> (<code>|</code>)</dt>
-  <dd><code>Punctuation::|</code></dd>
+  <dd><code>Punctuation::Bar</code></dd>
 
   <dt><code>close_brace</code> (<code>}</code>)</dt>
   <dd><code>Punctuation::Brace::Close</code></dd>
@@ -197,37 +197,37 @@ Ed note: floating point is hard
   <dd><code>ERROR</code> (Binary float literals not supported)</dd>
 
   <dt><code>binary_integer dot dot</code></dt>
-  <dd><code>Literal::Integer::Binary Punctuation::Dot Punctuation::Dot</code></dd>
+  <dd><code>Literal::Integer::Binary::Unsuffixed Punctuation::Dot Punctuation::Dot</code></dd>
 
   <dt><code>binary_integer dot identifier</code></dt>
-  <dd><code>Literal::Integer::Binary Punctuation::Dot Identifier::Plain</code></dd>
+  <dd><code>Literal::Integer::Binary::Unsuffixed Punctuation::Dot Identifier::Plain</code></dd>
 
   <dt><code>binary_integer dot raw_identifier</code></dt>
-  <dd><code>Literal::Integer::Binary Punctuation::Dot Identifier::Raw</code></dd>
+  <dd><code>Literal::Integer::Binary::Unsuffixed Punctuation::Dot Identifier::Raw</code></dd>
 
   <dt><code>octal_integer dot</code></dt>
   <dd><code>ERROR</code> (Octal float literals not supported)</dd>
 
   <dt><code>octal_integer dot dot</code></dt>
-  <dd><code>Literal::Integer::Octal Punctuation::Dot Punctuation::Dot</code></dd>
+  <dd><code>Literal::Integer::Octal::Unsuffixed Punctuation::Dot Punctuation::Dot</code></dd>
 
   <dt><code>octal_integer dot identifier</code></dt>
-  <dd><code>Literal::Integer::Octal Punctuation::Dot Identifier::Plain</code></dd>
+  <dd><code>Literal::Integer::Octal::Unsuffixed Punctuation::Dot Identifier::Plain</code></dd>
 
   <dt><code>octal_integer dot raw_identifier</code></dt>
-  <dd><code>Literal::Integer::Octal Punctuation::Dot Identifier::Raw</code></dd>
+  <dd><code>Literal::Integer::Octal::Unsuffixed Punctuation::Dot Identifier::Raw</code></dd>
 
   <dt><code>hexadecimal_integer dot</code></dt>
   <dd><code>ERROR</code> (Hexadecimal float literals not supported)</dd>
 
   <dt><code>hexadecimal_integer dot dot</code></dt>
-  <dd><code>Literal::Integer::Hexadecimal Punctuation::Dot Punctuation::Dot</code></dd>
+  <dd><code>Literal::Integer::Hexadecimal::Unsuffixed Punctuation::Dot Punctuation::Dot</code></dd>
 
   <dt><code>hexadecimal_integer dot identifier</code></dt>
-  <dd><code>Literal::Integer::Hexadecimal Punctuation::Dot Identifier::Plain</code></dd>
+  <dd><code>Literal::Integer::Hexadecimal::Unsuffixed Punctuation::Dot Identifier::Plain</code></dd>
 
   <dt><code>hexadecimal_integer dot raw_identifier</code></dt>
-  <dd><code>Literal::Integer::Hexadecimal Punctuation::Dot Identifier::Raw</code></dd>
+  <dd><code>Literal::Integer::Hexadecimal::Unsuffixed Punctuation::Dot Identifier::Raw</code></dd>
 
   <dt><code>binary_float</code></dt>
   <dd><code>ERROR</code> (Binary float literals not supported)</dd>
